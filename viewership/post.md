@@ -1,30 +1,16 @@
-Alabama, Michigan and Ohio State each bring more than twice the television audience of an average program to the same time slot against the same opponent. Nebraska, with one winning season between 2017 and 2023, brings almost as much. Clemson, which won two national titles in the same stretch, brings less than Iowa.
+Its easy to take TV ratings at face value and assume that whoever has the biggest numbers much be the biggest draw, but there are numerous factors that go into TV ratings other than just which two teams are playing. Some obvious examples are: 1) What network is the game on? Network broadcasts are more accessible than ESPN/cable which is more accessible than streaming. 2) What time is the game at? Primetime is named that for a reason, whereas much of the country is asleep by the time Pac-12 after dark gets up to speed. 3) What are the rankings of the teams involved? While fans of the teams playing will be interested no matter their ranking (up to a point), for casual fans, having one or more ranked teams involved can be a signal to pay more attention to a game. 
 
-Those are the results of a model fit to every college football telecast with a published audience from 2013 to 2025: 4,866 games, from Sports Media Watch's weekly ratings tables, each matched to the game it aired.
+We can take those factors and a variety of others described more below to build a model that can say "given a game on network X, at time Y, etc. What would we expect the TV ratings to be?" Below are the results of a model fit to every college football telecast with a published audience from 2013 to 2025: 4,866 games, from Sports Media Watch's [weekly ratings tables](tab:https://www.sportsmediawatch.com/college-football-tv-ratings/), each matched to the game it aired.
 
-**The short version:**
+**TL;DR:**
 
-- **2.3×** the audience of an average program: Alabama, Michigan and Ohio State, once network, kickoff time, rankings and stakes are held equal.
-- **1.5×** an ESPN audience for the same game on ABC. ESPNU gets about a fifth.
+- Alabama, Michigan, and Ohio State get **2.3×** the audience of an average program once network, kickoff time, rankings and stakes are held equal.
+- The same game on ABC gets a **50%** viewership bump compared to the same game on ESPN. ESPNU gets about 20% the audience of ESPN.
 - **0.79** is the correlation between a program's draw and how good it has been. The rest is brand.
-- **+79%** for Colorado between 2015–2019 and 2021–2025, and **+78%** for Kansas. Army and Memphis fell by more than a fifth.
 - **About 5%** of the audience is lost to a two-touchdown blowout. The matchup sets the audience before kickoff, and the game itself barely moves it.
 
-## 1. Where the numbers come from
 
-Sports Media Watch has published a table of college football television audiences every week since 2013: the game, the network, the kickoff time and the Nielsen viewer count. Through 2020 those are HTML tables. From 2021 they are images, which were transcribed by hand. Every row was matched to the game it describes in CollegeFootballData's schedule, which adds the teams' rankings in the poll that was current that week, the final score, and whether the game was a bowl, a playoff game or a neutral-site game.
-
-Two kinds of row are left out. In 2016 and 2017 Conference USA games aired on beIN Sports, a soccer channel few households get: 18 games at a median of 8,000 viewers, too unlike any other network to compare. And 18 games had a second row for a partial or overflow airing on another channel, which is not a separate broadcast; only the main airing is kept.
-
-The data covers the top of the slate, not all of it. A telecast only gets a published number if Nielsen measures it, and conference networks and streaming-only games mostly are not measured.
-
-![measured-share-v2](https://bwingert89.github.io/cfblogs/viewership/figures/measured-share-v2.png)
-
-*About two thirds of power-conference games against each other have a published audience in a typical season, under half of power-versus-Group of Five games, and a quarter or less of games between two Group of Five teams. 2020 is left out of everything that follows: its windows, crowds and schedules were not a normal season.*
-
-That matters for reading the results. A Group of Five program's draw here describes how it did in the games the networks chose to put on a measured channel. It says nothing about how often that happened.
-
-## 2. Separating the team from the time slot
+## 1. Separating the team from the time slot
 
 Raw audiences mostly measure the slot. The median measured game drew 1.3 million viewers. The 2014 national championship drew 34 million. A Saturday-night ABC game and a Thursday ESPNU game differ by more than any two teams do, and the best teams get the best slots, so a raw average flatters them twice.
 
@@ -49,6 +35,16 @@ It works on seasons it never saw. Fit on 2015–2019 and asked to predict 2013 a
 The network matters most. The same game draws half again as much on ABC or CBS as on ESPN, and a fifth as much on ESPNU. A top-five team adds about 60% to the audience, on either side of the matchup. A playoff game draws two and a half times a regular-season game in the same slot. Kickoff time matters less than its reputation once the network is accounted for: Saturday prime time is worth about 10% over the afternoon, because the prime-time premium mostly reflects which network gets the window. Weeknight games do better than either, at 16%, even after their lack of competing games is accounted for.
 
 A conference game draws 11% less than a non-conference game between the same teams in the same slot. A neutral site adds 21%, which mostly marks the made-for-television kickoff games and the neutral-site rivalries such as Texas–Oklahoma and Georgia–Florida. Each other measured game airing at the same time takes about 3%.
+
+## 2. Try it: predict a game's audience
+
+Because every effect in the model is a multiplier, a game's expected audience is a baseline audience multiplied by one number for each thing that describes it. Pick two teams, their rankings, the network, the kickoff and the rest below. Each row shows the multiplier that choice adds, and the total updates as you go. Whether it is a conference game, and whether it pits a power program against a Group of Five or FCS opponent, fills in from the two teams' 2025 conferences.
+
+<div id="cfb-viewership-calculator" data-cfblogs="viewership/calculator.js?v=1"><p><em>The audience calculator needs JavaScript.</em></p></div>
+
+It starts on a real game: Iowa at Iowa State on September 6, 2025, a noon kickoff on FOX with Iowa State ranked and five other measured games on at the same time. The model says about 2.7 million. The game drew 4.3 million, a miss of 1.6×, which is the model's typical miss. Nothing in the model knows that this was the Cy-Hawk rivalry, with both teams coming off strong 2024 seasons.
+
+Every program measured at least once is in the team lists. One measured only a few times sits close to 1.00×, because the model shrinks thin estimates toward average rather than trust two or three games.
 
 ## 3. Who brings the audience
 
@@ -111,7 +107,7 @@ Only a little. The audience figure is the average over the whole broadcast, so a
 - a game **decided by halftime** costs about 4% against one decided at the end;
 - a game that **stays within one score through the second half** gains about 7%.
 
-Those are real and in the expected direction, and they are small next to anything in section 2. By the time the game starts, its audience is mostly set by who is playing, where it airs, and what is at stake.
+Those are real and in the expected direction, and they are small next to anything in section 1. By the time the game starts, its audience is mostly set by who is playing, where it airs, and what is at stake.
 
 ## What this does not show
 
@@ -119,5 +115,20 @@ Those are real and in the expected direction, and they are small next to anythin
 - **A draw is an average over thirteen seasons.** Colorado's reflects three seasons of Deion Sanders and ten without him. The period comparison in section 5 is the better read on where a program stands now.
 - **The 2021–2025 audiences were transcribed by hand** from Sports Media Watch's weekly images, and the published figures are rounded. Errors in transcription are possible; every row was matched to a real game on the right date, which catches most of them.
 - **Audience counts changed over the period.** Nielsen expanded out-of-home viewing in 2020 and moved to a big-data panel in 2025. The season term absorbs a uniform shift but not one that affected some networks more than others.
+
+## 7. Where the numbers come from
+
+Sports Media Watch has published a table of college football television audiences every week since 2013: the game, the network, the kickoff time and the Nielsen viewer count. Through 2020 those are HTML tables. From 2021 they are images, which were transcribed by hand. Every row was matched to the game it describes in CollegeFootballData's schedule, which adds the teams' rankings in the poll that was current that week, the final score, and whether the game was a bowl, a playoff game or a neutral-site game.
+
+Two kinds of row are left out. In 2016 and 2017 Conference USA games aired on beIN Sports, a soccer channel few households get: 18 games at a median of 8,000 viewers, too unlike any other network to compare. And 18 games had a second row for a partial or overflow airing on another channel, which is not a separate broadcast; only the main airing is kept.
+
+The data covers the top of the slate, not all of it. A telecast only gets a published number if Nielsen measures it, and conference networks and streaming-only games mostly are not measured.
+
+![measured-share-v2](https://bwingert89.github.io/cfblogs/viewership/figures/measured-share-v2.png)
+
+*About two thirds of power-conference games against each other have a published audience in a typical season, under half of power-versus-Group of Five games, and a quarter or less of games between two Group of Five teams. 2020 is left out of everything that follows: its windows, crowds and schedules were not a normal season.*
+
+That matters for reading the results. A Group of Five program's draw here describes how it did in the games the networks chose to put on a measured channel. It says nothing about how often that happened.
+
 
 *Data: Sports Media Watch weekly college football TV ratings, 2013–2025; CollegeFootballData schedules, rankings, scores and Elo ratings. The model is a penalised fixed-effects regression of log viewers on both teams' draws plus network, kickoff window, rankings, stakes, matchup and competing telecasts, with season effects.*

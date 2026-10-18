@@ -12,6 +12,8 @@ Served by GitHub Pages at https://bwingert89.github.io/cfblogs/, so a post links
 | `<post>/post.md` | the post's text as pasted into Bear, with every figure linked from this site |
 | `<post>/figures/<name>-v<N>.png` | the published figures, credit-stamped and versioned |
 | `<post>/README.md` | what the post covers and how its figures were made |
+| `<post>/<name>.js` | a post's interactive piece, loaded only on a page with an element carrying `data-cfblogs="<post>/<name>.js?v=N"` |
+| `shared/bear-footer.html` | the one script for Bear's footer directive: it loads each page's interactive pieces from this site and does nothing elsewhere |
 | `index.html` | the list of posts, so the site root is not a 404 |
 | `.nojekyll` | serve every file as-is (Jekyll would hide paths that start with `_`) |
 
@@ -23,6 +25,8 @@ Served by GitHub Pages at https://bwingert89.github.io/cfblogs/, so a post links
 - **Figures are outputs.** They are drawn by a private analysis project (`cfbgraph26`) through
   `posts/_shared/blogfig.py`, which saves, stamps, versions and relinks each one. Unstamped copies
   (`figures_clean/`) stay local and are gitignored.
+- **Interactive pieces version their URL too** (`?v=N` in the `data-cfblogs` attribute), and the script
+  passes the same version to the data it fetches.
 - **One post, one folder**, named for the post's subject in lowercase with hyphens.
 
 ## Posts

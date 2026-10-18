@@ -5,6 +5,8 @@
 | file | what it is |
 |---|---|
 | `post.md` | the post as pasted into Bear |
+| `calculator.js`, `calculator.json` | the audience calculator in section 2: the script builds the dropdowns and multiplies live; the JSON is the model's baseline, multipliers and every program's draw, written from the saved fit by `scripts/scratch/blog_viewership/calculator_data.py` |
+| `calculator.html` | the calculator on its own page, for checking it outside Bear |
 | `figures/measured-share-v<N>.png` | share of regular-season FBS games with a published audience, by matchup type |
 | `figures/slot-multipliers-v<N>.png` | what network, kickoff, rankings, stakes and matchup do to an audience |
 | `figures/draw-ladder-v<N>.png` | the 25 programs that bring the most audience, with standard errors |

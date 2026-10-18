@@ -1,0 +1,17 @@
+<!-- Paste once into Bear's footer directive (Dashboard > Settings > Header and footer directives), after anything
+     already there. It loads a post's interactive piece from https://bwingert89.github.io/cfblogs/ only on a page
+     that asks for one: an element with data-cfblogs="<post>/<script>.js?v=N". Every other page is untouched. -->
+<script>
+(function () {
+  var base = "https://bwingert89.github.io/cfblogs/", seen = {};
+  var els = document.querySelectorAll("[data-cfblogs]");
+  for (var i = 0; i < els.length; i++) {
+    var path = els[i].getAttribute("data-cfblogs");
+    if (!path || seen[path]) continue;
+    seen[path] = true;
+    var s = document.createElement("script");
+    s.src = base + path;
+    document.body.appendChild(s);
+  }
+})();
+</script>
