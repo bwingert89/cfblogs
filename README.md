@@ -13,6 +13,7 @@ Served by GitHub Pages at https://bwingert89.github.io/cfblogs/, so a post links
 | `<post>/figures/<name>-v<N>.png` | the published figures, credit-stamped and versioned |
 | `<post>/README.md` | what the post covers and how its figures were made |
 | `<post>/<name>.js` | a post's interactive piece, loaded only on a page with an element carrying `data-cfblogs="<post>/<name>.js?v=N"` |
+| `shared/logos/<id>.png` | team logos, 64 px, keyed by CollegeFootballData team id, for any post's interactive pieces (every FBS program, plus the FCS and Division II programs that have appeared in a post) |
 | `shared/bear-footer.html` | the one script for Bear's footer directive: it loads each page's interactive pieces from this site and does nothing elsewhere |
 | `index.html` | the list of posts, so the site root is not a 404 |
 | `.nojekyll` | serve every file as-is (Jekyll would hide paths that start with `_`) |
@@ -37,3 +38,5 @@ Served by GitHub Pages at https://bwingert89.github.io/cfblogs/, so a post links
 
 Earlier posts kept their figures elsewhere: *A Designed Non-Conference Schedule* lives in
 https://github.com/bwingert89/cfbschedules.
+
+Team logos are the schools' marks, used here to identify teams in a non-commercial analysis.

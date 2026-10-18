@@ -80,6 +80,9 @@
     ".cfbcalc-field.wide{grid-column:span 2}",
     "@media (max-width:560px){.cfbcalc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}",
     ".cfbcalc label{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;opacity:.7;margin-bottom:.25rem}",
+    ".cfbcalc-pick{display:flex;align-items:center;gap:.55rem;min-width:0}",
+    ".cfbcalc-pick select{flex:1 1 auto}",
+    ".cfbcalc-logo{flex:0 0 auto;width:36px;height:36px;object-fit:contain}",
     ".cfbcalc select{font:inherit;font-size:.9rem;width:100%;min-width:0;max-width:100%;text-overflow:ellipsis;padding:.35rem .4rem;border:1px solid rgba(127,115,95,.45);border-radius:5px;background:transparent;color:inherit}",
     ".cfbcalc select option{color:#241E16;background:#FBF7F0}",
     ".cfbcalc-rows{margin-top:1.1rem;border-top:1px solid rgba(127,115,95,.3)}",
@@ -116,8 +119,8 @@
 
     var o = data.options;
     var FIELDS = [
-      { key: "team1", label: "Home team", wide: true, items: teams.map(function (t) { return [teamLabel(t)]; }), value: byName("Iowa State") },
-      { key: "team2", label: "Away team", wide: true, items: teams.map(function (t) { return [teamLabel(t)]; }), value: byName("Iowa") },
+      { key: "team1", label: "Home team", wide: true, logo: true, items: teams.map(function (t) { return [teamLabel(t)]; }), value: byName("Iowa State") },
+      { key: "team2", label: "Away team", wide: true, logo: true, items: teams.map(function (t) { return [teamLabel(t)]; }), value: byName("Iowa") },
       { key: "rank1", label: "Home team ranking", items: o.rank, value: 1 },
       { key: "rank2", label: "Away team ranking", items: o.rank, value: 0 },
       { key: "network", label: "Network", items: o.network, value: 2 },
@@ -126,10 +129,11 @@
 
     var html = '<div class="cfbcalc"><div class="cfbcalc-grid">';
     FIELDS.forEach(function (f) {
-      html += '<div class="cfbcalc-field' + (f.wide ? " wide" : "") + '"><label for="cfbcalc-' + f.key + '">' + esc(f.label) + "</label>" +
-        '<select id="cfbcalc-' + f.key + '">' + f.items.map(function (it, i) {
-          return '<option value="' + i + '"' + (i === f.value ? " selected" : "") + ">" + esc(it[0]) + "</option>";
-        }).join("") + "</select></div>";
+      var select = '<select id="cfbcalc-' + f.key + '">' + f.items.map(function (it, i) {
+        return '<option value="' + i + '"' + (i === f.value ? " selected" : "") + ">" + esc(it[0]) + "</option>";
+      }).join("") + "</select>";
+      if (f.logo) select = '<div class="cfbcalc-pick">' + select + '<img class="cfbcalc-logo" id="cfbcalc-' + f.key + '-logo" alt=""></div>';
+      html += '<div class="cfbcalc-field' + (f.wide ? " wide" : "") + '"><label for="cfbcalc-' + f.key + '">' + esc(f.label) + "</label>" + select + "</div>";
     });
     html += '</div><div class="cfbcalc-rows" id="cfbcalc-rows"></div><div class="cfbcalc-out" id="cfbcalc-out"></div>' +
       '<div class="cfbcalc-note">A regular-season game at the home team\'s stadium. Conferences and the season effect are ' + data.season +
@@ -140,7 +144,14 @@
     var sel = {};
     FIELDS.forEach(function (f) { sel[f.key] = document.getElementById("cfbcalc-" + f.key); });
 
+    var LOGOS = base + "../shared/logos/";
+    function showLogo(key) {
+      var team = teams[+sel[key].value], img = document.getElementById("cfbcalc-" + key + "-logo");
+      if (team.id) { img.src = LOGOS + team.id + ".png"; img.alt = team.name; img.style.visibility = "visible"; }
+      else { img.removeAttribute("src"); img.alt = ""; img.style.visibility = "hidden"; }
+    }
     function render() {
+      showLogo("team1"); showLogo("team2");
       var state = {
         team1: teams[+sel.team1.value], team2: teams[+sel.team2.value],
         rank1: +sel.rank1.value, rank2: +sel.rank2.value, network: +sel.network.value, window: +sel.window.value
