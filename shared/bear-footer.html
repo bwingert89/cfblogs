@@ -1,17 +1,25 @@
-<!-- Paste once into Bear's footer directive (Dashboard > Settings > Header and footer directives), after anything
+<!-- Paste once into Bear's footer directive (Dashboard > Settings > Header and footer directives), below anything
      already there. It loads a post's interactive piece from https://bwingert89.github.io/cfblogs/ only on a page
-     that asks for one: an element with data-cfblogs="<post>/<script>.js?v=N". Every other page is untouched. -->
+     that asks for one, and does nothing on every other page. A post asks with either
+       data-cfblogs="<post>/<name>.js?v=N"          (preferred: carries a cache version), or
+       class="cfblogs--<post>--<name>"               (fallback, in case the blog strips data- attributes) -->
 <script>
 (function () {
   var base = "https://bwingert89.github.io/cfblogs/", seen = {};
-  var els = document.querySelectorAll("[data-cfblogs]");
-  for (var i = 0; i < els.length; i++) {
-    var path = els[i].getAttribute("data-cfblogs");
-    if (!path || seen[path]) continue;
-    seen[path] = true;
+  var load = function (path) {
+    var key = path.split("?")[0];
+    if (!path || seen[key]) return;
+    seen[key] = true;
     var s = document.createElement("script");
     s.src = base + path;
     document.body.appendChild(s);
+  };
+  var els = document.querySelectorAll("[data-cfblogs]");
+  for (var i = 0; i < els.length; i++) load(els[i].getAttribute("data-cfblogs"));
+  var tagged = document.querySelectorAll("[class*='cfblogs--']");
+  for (var j = 0; j < tagged.length; j++) {
+    var m = tagged[j].className.match(/cfblogs--([a-z0-9-]+?)--([a-z0-9-]+)/);
+    if (m) load(m[1] + "/" + m[2] + ".js");
   }
 })();
 </script>

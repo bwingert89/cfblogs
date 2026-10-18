@@ -40,7 +40,7 @@ A conference game draws 12% less than a non-conference game between the same tea
 
 Because every effect in the model is a multiplier, a game's expected audience is a baseline audience multiplied by one number for each thing that describes it. Pick a home team and an away team, their rankings, the network and the kickoff. Each row shows the multiplier that choice adds, and the total updates as you go. Whether it is a conference game, and whether it pits a power program against a Group of Five or FCS opponent, fills in from the two teams' 2025 conferences. The calculator assumes a regular-season game at the home team's stadium, with the usual number of other games on at that kickoff.
 
-<div id="cfb-viewership-calculator" data-cfblogs="viewership/calculator.js?v=2"><p><em>The audience calculator needs JavaScript.</em></p></div>
+<div id="cfb-viewership-calculator" class="cfblogs--viewership--calculator" data-cfblogs="viewership/calculator.js?v=2"><p><em>The audience calculator needs JavaScript.</em></p></div>
 
 It starts on a real game: Iowa at Iowa State on September 6, 2025, a noon kickoff on FOX with Iowa State ranked. The model says about 2.8 million. The game drew 4.3 million, a miss of about 1.5×, close to the model's typical miss. Nothing in the model knows that this was the Cy-Hawk rivalry, with Iowa State coming off an 11-win season.
 
