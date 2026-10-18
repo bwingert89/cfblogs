@@ -16,8 +16,8 @@
     var rows = [];
     var add = function (label, detail, mult) { rows.push({ label: label, detail: detail, mult: mult }); };
 
-    add("Team 1 draw", t1.name, t1.draw);
-    add("Team 2 draw", t2.name, t2.draw);
+    add("Home team draw", t1.name, t1.draw);
+    add("Away team draw", t2.name, t2.draw);
     add("Network", o.network[s.network][0], o.network[s.network][1]);
     add("Kickoff", o.window[s.window][0], o.window[s.window][1]);
 
@@ -27,9 +27,6 @@
     var rankLabel = function (r) { return r === "unranked" ? "unranked" : r === "top 5" ? "top 5" : "ranked " + r.replace("-", " to "); };
     add("Better-ranked team", rankLabel(better), o.rank_high[better]);
     add("Worse-ranked team", rankLabel(worse), o.rank_low[worse]);
-
-    add("Stakes", o.stakes[s.stakes][0], o.stakes[s.stakes][1]);
-    add("Site", o.site[s.site][0], o.site[s.site][1]);
 
     // The matchup flags follow from the two teams (2025 conferences), not from a dropdown.
     var known = t1.conference !== undefined && t2.conference !== undefined;
@@ -45,9 +42,10 @@
       add("Opponent level", "not applied to an average program", 1);
     }
 
-    var nb = Math.min(s.broadcast, s.competing);
-    add("Other games at the same time", s.competing + (s.competing === 1 ? " measured game" : " measured games"), Math.pow(data.competing, s.competing));
-    add("…of them on broadcast TV", nb + " on ABC, CBS, FOX or NBC", Math.pow(data.competing_broadcast, nb));
+    // Not a choice: the typical number of other measured games in this kickoff window, 2021-2025.
+    var n = o.window[s.window][2], nb = o.window[s.window][3];
+    add("Other games at the same time", "typical for this kickoff: " + n + (n === 1 ? " other measured game" : " other measured games") +
+      (n ? ", " + nb + " on ABC, CBS, FOX or NBC" : ""), Math.pow(data.competing, n) * Math.pow(data.competing_broadcast, nb));
 
     var total = data.baseline;
     rows.forEach(function (r) { total *= r.mult; });
@@ -117,18 +115,13 @@
     var byName = function (name) { for (var i = 0; i < teams.length; i++) if (teams[i].name === name) return i; return 0; };
 
     var o = data.options;
-    var range = function (n) { var a = []; for (var i = 0; i <= n; i++) a.push([String(i), i]); return a; };
     var FIELDS = [
-      { key: "team1", label: "Team 1", wide: true, items: teams.map(function (t) { return [teamLabel(t)]; }), value: byName("Iowa State") },
-      { key: "team2", label: "Team 2", wide: true, items: teams.map(function (t) { return [teamLabel(t)]; }), value: byName("Iowa") },
-      { key: "rank1", label: "Team 1 ranking", items: o.rank, value: 1 },
-      { key: "rank2", label: "Team 2 ranking", items: o.rank, value: 0 },
+      { key: "team1", label: "Home team", wide: true, items: teams.map(function (t) { return [teamLabel(t)]; }), value: byName("Iowa State") },
+      { key: "team2", label: "Away team", wide: true, items: teams.map(function (t) { return [teamLabel(t)]; }), value: byName("Iowa") },
+      { key: "rank1", label: "Home team ranking", items: o.rank, value: 1 },
+      { key: "rank2", label: "Away team ranking", items: o.rank, value: 0 },
       { key: "network", label: "Network", items: o.network, value: 2 },
-      { key: "window", label: "Kickoff", items: o.window, value: 0 },
-      { key: "stakes", label: "Stakes", items: o.stakes, value: 0 },
-      { key: "site", label: "Site", items: o.site, value: 0 },
-      { key: "competing", label: "Other games at the same time", items: range(10), value: 5 },
-      { key: "broadcast", label: "Of those, on broadcast TV", items: range(4), value: 1 }
+      { key: "window", label: "Kickoff", items: o.window, value: 0 }
     ];
 
     var html = '<div class="cfbcalc"><div class="cfbcalc-grid">';
@@ -139,7 +132,8 @@
         }).join("") + "</select></div>";
     });
     html += '</div><div class="cfbcalc-rows" id="cfbcalc-rows"></div><div class="cfbcalc-out" id="cfbcalc-out"></div>' +
-      '<div class="cfbcalc-note">Conferences and the season effect are ' + data.season + "'s. Each choice multiplies the one above it; " +
+      '<div class="cfbcalc-note">A regular-season game at the home team\'s stadium. Conferences and the season effect are ' + data.season +
+      "'s, and the other games on at the same time are the typical number for the kickoff chosen, 2021 to " + data.season + ". Each choice multiplies the one above it; " +
       "the range is the model's typical miss of a factor of " + data.miss_factor + " either way.</div></div>";
     mount.innerHTML = html;
 
@@ -147,17 +141,13 @@
     FIELDS.forEach(function (f) { sel[f.key] = document.getElementById("cfbcalc-" + f.key); });
 
     function render() {
-      var n = +sel.competing.value;
-      if (+sel.broadcast.value > Math.min(n, 4)) sel.broadcast.value = String(Math.min(n, 4));
-      Array.prototype.forEach.call(sel.broadcast.options, function (opt) { opt.disabled = +opt.value > n; });
       var state = {
         team1: teams[+sel.team1.value], team2: teams[+sel.team2.value],
-        rank1: +sel.rank1.value, rank2: +sel.rank2.value, network: +sel.network.value, window: +sel.window.value,
-        stakes: +sel.stakes.value, site: +sel.site.value, competing: n, broadcast: +sel.broadcast.value
+        rank1: +sel.rank1.value, rank2: +sel.rank2.value, network: +sel.network.value, window: +sel.window.value
       };
       var res = compute(data, state);
-      var rows = '<div class="cfbcalc-row flat"><span class="l">Baseline</span><span class="d">two average programs, unranked, regular season, ' +
-        "Saturday 2 to 6 pm ET on ESPN, " + data.season + " audience levels</span><span class=\"m\">" + viewers(data.baseline) + "</span></div>";
+      var rows = '<div class="cfbcalc-row flat"><span class="l">Baseline</span><span class="d">two average programs, unranked, a regular-season home game, ' +
+        "Saturday 2 to 6 pm ET on ESPN with no other game on, " + data.season + " audience levels</span><span class=\"m\">" + viewers(data.baseline) + "</span></div>";
       res.rows.forEach(function (r) {
         var cls = Math.abs(r.mult - 1) < 0.005 ? "flat" : r.mult > 1 ? "up" : "down";
         rows += '<div class="cfbcalc-row ' + cls + '"><span class="l">' + esc(r.label) + '</span><span class="d">' + esc(r.detail) +

@@ -5,9 +5,9 @@ We can take those factors and a variety of others described more below to build 
 **TL;DR:**
 
 - Alabama, Michigan, and Ohio State get **2.3×** the audience of an average program once network, kickoff time, rankings and stakes are held equal.
-- The same game on ABC gets a **50%** viewership bump compared to the same game on ESPN. ESPNU gets about 20% the audience of ESPN.
+- The same game on ABC gets a **60%** viewership bump compared to the same game on ESPN. ESPNU gets about 20% the audience of ESPN.
 - **0.79** is the correlation between a program's draw and how good it has been. The rest is brand.
-- **About 5%** of the audience is lost to a two-touchdown blowout. The matchup sets the audience before kickoff, and the game itself barely moves it.
+- **About 4%** of the audience is lost to a two-touchdown blowout. The matchup sets the audience before kickoff, and the game itself barely moves it.
 
 
 ## 1. Separating the team from the time slot
@@ -28,45 +28,45 @@ The team draws are shrunk toward average, so a program with a handful of telecas
 
 It works on seasons it never saw. Fit on 2015–2019 and asked to predict 2013 and 2014, the model's typical miss is a factor of about 1.6 in audience, against 1.8 without the team draws and 3.6 for the raw spread. Most of what makes an audience is the slot. The teams account for about a fifth of what is left over.
 
-![slot-multipliers-v2](https://bwingert89.github.io/cfblogs/viewership/figures/slot-multipliers-v2.png)
+![slot-multipliers-v3](https://bwingert89.github.io/cfblogs/viewership/figures/slot-multipliers-v3.png)
 
 *Each dot is what one feature of a telecast does to its audience with everything else held equal. The model is fit on all 4,583 telecasts from 2013 to 2025 except 2020.*
 
-The network matters most. The same game draws half again as much on ABC or CBS as on ESPN, and a fifth as much on ESPNU. A top-five team adds about 60% to the audience, on either side of the matchup. A playoff game draws two and a half times a regular-season game in the same slot. Kickoff time matters less than its reputation once the network is accounted for: Saturday prime time is worth about 10% over the afternoon, because the prime-time premium mostly reflects which network gets the window. Weeknight games do better than either, at 16%, even after their lack of competing games is accounted for.
+The network matters most. The same game draws half again as much or more on ABC or CBS as on ESPN, and a fifth as much on ESPNU. A top-five team adds about 60% to the audience, on either side of the matchup. A playoff game draws nearly two and a half times a regular-season game in the same slot. Kickoff time matters less than its reputation once the network is accounted for: Saturday prime time is worth only about 2% over the afternoon, because the prime-time premium mostly reflects which network gets the window. Weeknight games do better, at 24%, even after their lack of competing games is accounted for.
 
-A conference game draws 11% less than a non-conference game between the same teams in the same slot. A neutral site adds 21%, which mostly marks the made-for-television kickoff games and the neutral-site rivalries such as Texas–Oklahoma and Georgia–Florida. Each other measured game airing at the same time takes about 3%.
+A conference game draws 12% less than a non-conference game between the same teams in the same slot. A neutral site adds 18%, which mostly marks the made-for-television kickoff games and the neutral-site rivalries such as Texas–Oklahoma and Georgia–Florida. Each other measured game airing at the same time takes about 5%.
 
 ## 2. Try it: predict a game's audience
 
-Because every effect in the model is a multiplier, a game's expected audience is a baseline audience multiplied by one number for each thing that describes it. Pick two teams, their rankings, the network, the kickoff and the rest below. Each row shows the multiplier that choice adds, and the total updates as you go. Whether it is a conference game, and whether it pits a power program against a Group of Five or FCS opponent, fills in from the two teams' 2025 conferences.
+Because every effect in the model is a multiplier, a game's expected audience is a baseline audience multiplied by one number for each thing that describes it. Pick a home team and an away team, their rankings, the network and the kickoff. Each row shows the multiplier that choice adds, and the total updates as you go. Whether it is a conference game, and whether it pits a power program against a Group of Five or FCS opponent, fills in from the two teams' 2025 conferences. The calculator assumes a regular-season game at the home team's stadium, with the usual number of other games on at that kickoff.
 
-<div id="cfb-viewership-calculator" data-cfblogs="viewership/calculator.js?v=1"><p><em>The audience calculator needs JavaScript.</em></p></div>
+<div id="cfb-viewership-calculator" data-cfblogs="viewership/calculator.js?v=2"><p><em>The audience calculator needs JavaScript.</em></p></div>
 
-It starts on a real game: Iowa at Iowa State on September 6, 2025, a noon kickoff on FOX with Iowa State ranked and five other measured games on at the same time. The model says about 2.7 million. The game drew 4.3 million, a miss of 1.6×, which is the model's typical miss. Nothing in the model knows that this was the Cy-Hawk rivalry, with Iowa State coming off an 11-win season.
+It starts on a real game: Iowa at Iowa State on September 6, 2025, a noon kickoff on FOX with Iowa State ranked. The model says about 2.8 million. The game drew 4.3 million, a miss of about 1.5×, close to the model's typical miss. Nothing in the model knows that this was the Cy-Hawk rivalry, with Iowa State coming off an 11-win season.
 
 Every program measured at least once is in the team lists. One measured only a few times sits close to 1.00×, because the model shrinks thin estimates toward average rather than trust two or three games.
 
 ## 3. Who brings the audience
 
-![draw-ladder-v2](https://bwingert89.github.io/cfblogs/viewership/figures/draw-ladder-v2.png)
+![draw-ladder-v3](https://bwingert89.github.io/cfblogs/viewership/figures/draw-ladder-v3.png)
 
 *Each program's draw: the audience it brings against an average program, in the same slot against the same opponent. Programs with fewer than 20 measured telecasts are left off the chart, since their estimates are too uncertain to rank.*
 
-The top of the list is the list everyone would guess, with one exception. Alabama, Michigan and Ohio State are effectively tied at 2.3× an average program. **Nebraska is fourth**, at 2.15×, ahead of Texas, Georgia and LSU, over a period in which it never won more than nine games in a season. **Notre Dame**, with more measured telecasts than any other program (143), is 17th at 1.7×. **Clemson** is 24th at 1.5×, behind Iowa, Arkansas and South Carolina.
+The top of the list is the list everyone would guess, with one exception. Alabama, Michigan and Ohio State are effectively tied at 2.3× an average program. **Nebraska is fourth**, at 2.18×, ahead of Texas, Georgia and LSU, over a period in which it never won more than nine games in a season. **Notre Dame**, with more measured telecasts than any other program (143), is 17th at 1.7×. **Clemson** is 22nd at 1.55×, behind Iowa, Arkansas and South Carolina.
 
-At the other end, among programs measured at least 30 times, North Texas (0.66×), Troy and Georgia Southern (0.67× each) bring the least.
+At the other end, among programs measured at least 30 times, North Texas, Tulane and Troy (0.67× each) bring the least.
 
-**Iowa State** brings 1.28×, 42nd of the 123 programs measured 20 or more times. That is a quarter more audience than an average program, about what its results would predict.
+**Iowa State** brings 1.32×, 38th of the 123 programs measured 20 or more times. That is about a third more audience than an average program, about what its results would predict.
 
 ## 4. Strength explains most of it, not all
 
 The obvious explanation for a draw is winning. To test it, each program's draw is compared with how good it has been, measured by its average Elo rating over the same seasons.
 
-![brand-vs-strength-v2](https://bwingert89.github.io/cfblogs/viewership/figures/brand-vs-strength-v2.png)
+![brand-vs-strength-v3](https://bwingert89.github.io/cfblogs/viewership/figures/brand-vs-strength-v3.png)
 
 *Each program's audience draw against its average Elo rating, 2013–2025, for the 123 programs measured 20 or more times. The dashed line is the best straight-line fit. A program above the line draws more than its results predict.*
 
-The correlation is 0.79, so winning is most of it. One standard deviation of Elo is worth about 44% more audience. The interesting programs are the ones off the line.
+The correlation is 0.79, so winning is most of it. One standard deviation of Elo is worth about 46% more audience. The interesting programs are the ones off the line.
 
 **Above it**, drawing more than their results predict:
 
@@ -84,28 +84,28 @@ The correlation is 0.79, so winning is most of it. One standard deviation of Elo
 
 Brands move slowly, but they move. Fitting the same model separately on 2015–2019 and on 2021–2025 gives each program two draws.
 
-![audience-movers-v2](https://bwingert89.github.io/cfblogs/viewership/figures/audience-movers-v2.png)
+![audience-movers-v3](https://bwingert89.github.io/cfblogs/viewership/figures/audience-movers-v3.png)
 
 *The largest changes in draw between 2015–2019 (circle) and 2021–2025 (logo), among the 102 programs measured at least ten times in both periods.*
 
 Most programs barely move: across all 102, the two periods correlate at 0.88. The exceptions have stories behind them.
 
-- **Colorado** went from 1.16× to 2.08×, the largest rise of any program and fifth in the country in 2021–2025. That is Deion Sanders.
-- **Kansas** went from 0.80× to 1.41×, almost as large a rise, on the back of a 2022 bowl team and a nine-win 2023.
-- **Iowa State** went from 1.09× to 1.37×, 34th in the recent period.
-- **BYU** went from 0.99× to 1.24× as it moved into the Big 12.
-- **Army** fell from 1.6× to 1.15×. Its 2015–2019 draw rested on 15 telecasts, five of them Army–Navy and four against Notre Dame, Ohio State, Michigan and Penn State.
-- **Memphis** fell from 1.03× to 0.81×. **Troy, New Mexico, Temple and Georgia Southern** fell as far or further.
+- **Colorado** went from 1.16× to 2.11×, the largest rise of any program and fourth in the country in 2021–2025. That is Deion Sanders.
+- **Kansas** went from 0.80× to 1.45×, almost as large a rise, on the back of a 2022 bowl team and a nine-win 2023.
+- **Iowa State** went from 1.10× to 1.40×, 32nd in the recent period.
+- **BYU** went from 1.01× to 1.24× as it moved into the Big 12.
+- **Army** fell from 1.61× to 1.16×. Its 2015–2019 draw rested on 15 telecasts, five of them Army–Navy and four against Notre Dame, Ohio State, Michigan and Penn State.
+- **Memphis** fell from 1.02× to 0.80×. **Troy, New Mexico, Temple and Nevada** fell as far or further.
 
-Notre Dame slipped from 1.69× to 1.53× between the periods, from 7th to 19th, with a playoff appearance in each.
+Notre Dame slipped from 1.71× to 1.51× between the periods, from 8th to 21st, with a playoff appearance in each.
 
 ## 6. Does the game itself matter?
 
 Only a little. The audience figure is the average over the whole broadcast, so a blowout should lose its second half. Adding the game's final margin and how it unfolded (from the play-by-play, 2015–2019) to the model:
 
-- a **two-touchdown final margin** costs about 4.5% of the audience against a one-score game;
+- a **two-touchdown final margin** costs about 4% of the audience against a one-score game;
 - a game **decided by halftime** costs about 4% against one decided at the end;
-- a game that **stays within one score through the second half** gains about 7%.
+- a game that **stays within one score through the second half** gains about 8%.
 
 Those are real and in the expected direction, and they are small next to anything in section 1. By the time the game starts, its audience is mostly set by who is playing, where it airs, and what is at stake.
 
@@ -120,11 +120,11 @@ Those are real and in the expected direction, and they are small next to anythin
 
 Sports Media Watch has published a table of college football television audiences every week since 2013: the game, the network, the kickoff time and the Nielsen viewer count. Through 2020 those are HTML tables. From 2021 they are images, which were transcribed by hand. Every row was matched to the game it describes in CollegeFootballData's schedule, which adds the teams' rankings in the poll that was current that week, the final score, and whether the game was a bowl, a playoff game or a neutral-site game.
 
-Two kinds of row are left out. In 2016 and 2017 Conference USA games aired on beIN Sports, a soccer channel few households get: 18 games at a median of 8,000 viewers, too unlike any other network to compare. And 18 games had a second row for a partial or overflow airing on another channel, which is not a separate broadcast; only the main airing is kept.
+Two kinds of row are left out. In 2016 and 2017 Conference USA games aired on beIN Sports, a soccer channel few households get: 18 games at a median of 8,000 viewers, too unlike any other network to compare. And 18 games had a second row for a partial or overflow airing on another channel, which is not a separate broadcast; only the main airing is kept. Every game is dated by its Eastern-time calendar day, so a Saturday-night kickoff counts as Saturday.
 
 The data covers the top of the slate, not all of it. A telecast only gets a published number if Nielsen measures it, and conference networks and streaming-only games mostly are not measured.
 
-![measured-share-v2](https://bwingert89.github.io/cfblogs/viewership/figures/measured-share-v2.png)
+![measured-share-v3](https://bwingert89.github.io/cfblogs/viewership/figures/measured-share-v3.png)
 
 *About two thirds of power-conference games against each other have a published audience in a typical season, under half of power-versus-Group of Five games, and a quarter or less of games between two Group of Five teams. 2020 is left out of everything that follows: its windows, crowds and schedules were not a normal season.*
 
