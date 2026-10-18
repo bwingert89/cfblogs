@@ -62,7 +62,7 @@ At the other end, among programs measured at least 30 times, North Texas, Tulane
 
 The obvious explanation for a draw is winning. To test it, each program's draw is compared with how good it has been, measured by its average Elo rating over the same seasons.
 
-![brand-vs-strength-v4](https://bwingert89.github.io/cfblogs/viewership/figures/brand-vs-strength-v4.png)
+![brand-vs-strength-v5](https://bwingert89.github.io/cfblogs/viewership/figures/brand-vs-strength-v5.png)
 
 *Each program's audience draw against its average Elo rating, 2013–2025, for the 123 programs measured 20 or more times. The dashed line is the best straight-line fit. A program above the line draws more than its results predict.*
 
