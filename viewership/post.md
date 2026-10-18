@@ -42,7 +42,7 @@ Because every effect in the model is a multiplier, a game's expected audience is
 
 <div id="cfb-viewership-calculator" data-cfblogs="viewership/calculator.js?v=1"><p><em>The audience calculator needs JavaScript.</em></p></div>
 
-It starts on a real game: Iowa at Iowa State on September 6, 2025, a noon kickoff on FOX with Iowa State ranked and five other measured games on at the same time. The model says about 2.7 million. The game drew 4.3 million, a miss of 1.6×, which is the model's typical miss. Nothing in the model knows that this was the Cy-Hawk rivalry, with both teams coming off strong 2024 seasons.
+It starts on a real game: Iowa at Iowa State on September 6, 2025, a noon kickoff on FOX with Iowa State ranked and five other measured games on at the same time. The model says about 2.7 million. The game drew 4.3 million, a miss of 1.6×, which is the model's typical miss. Nothing in the model knows that this was the Cy-Hawk rivalry, with Iowa State coming off an 11-win season.
 
 Every program measured at least once is in the team lists. One measured only a few times sits close to 1.00×, because the model shrinks thin estimates toward average rather than trust two or three games.
 
