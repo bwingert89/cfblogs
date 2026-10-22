@@ -7,6 +7,8 @@
 | `post.md` | the post as pasted into Bear |
 | `calculator.js`, `calculator.json` | the audience calculator in section 2: the script builds the dropdowns and multiplies live; the JSON is the model's baseline, multipliers and every program's draw, written from the saved fit by `scripts/scratch/blog_viewership/calculator_data.py` |
 | `calculator.html` | the calculator on its own page, for checking it outside Bear |
+| `coach-timeline.js`, `coach-timeline.json` | the coach-timeline picker in section 6: a program dropdown and an SVG chart of that program's audience by season against its own long-run draw, with head-coach tenures shaded. The JSON (104 programs with 3+ telecasts in 6+ seasons) is the season-deviation fit of cfbgraph26's `notebooks/viewership_dynamics.ipynb`, written by `scripts/scratch/blog_viewership/timeline_data.py` |
+| `coach-timeline.html` | the picker on its own page, for checking it outside Bear |
 | `figures/measured-share-v<N>.png` | share of regular-season FBS games with a published audience, by matchup type |
 | `figures/slot-multipliers-v<N>.png` | what network, kickoff, rankings, stakes and matchup do to an audience |
 | `figures/draw-ladder-v<N>.png` | the 25 programs that bring the most audience, with standard errors |

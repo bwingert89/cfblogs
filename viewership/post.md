@@ -99,7 +99,23 @@ Most programs barely move: across all 102, the two periods correlate at 0.88. Th
 
 Notre Dame slipped from 1.71× to 1.51× between the periods, from 8th to 21st, with a playoff appearance in each.
 
-## 6. Does the game itself matter?
+## 6. Season by season: coaches and form
+
+Going finer than two periods, each program can get a number for every season: the audience it drew that year against its own long-run draw, with the slot, network, rankings and opponent held equal as before. A season with only a few measured games is pulled back toward the program's normal, so one big night can't make a year.
+
+Most programs barely move. A typical season sits within about 6% of the program's long-run draw. Splitting seasons into halves finds nothing more: once a team's ranking is accounted for, its audience doesn't measurably shift within a season.
+
+The exception is Colorado. In Deion Sanders' first two seasons it drew **32% and then 43% more** than its own normal, the two largest single-season swings in the data. The first of those came in a 4-8 season, so it wasn't the winning. By 2025, at 3-9, Colorado was back to about 6% above its normal.
+
+Coaching changes in general do far less. Across 145 new head coaches at 75 programs, the audience was flat in the seasons before the hire and drifted up only about 1% in the new coach's first full season and 2% by his third. A new coach brings viewers mostly through the wins he produces, and those are already counted elsewhere. Rankings capture part of it, and how a season is going captures the rest: each win above a team's preseason expectation adds about **6%** to a game's audience, and about two thirds of that shows up even after the rankings are accounted for.
+
+One pattern to keep in mind when reading the charts: since 2023, power-conference programs as a group have drawn 3–5% above their long-run normal and Group of Five programs 3–5% below. Conference realignment, which Group of Five games get measured, and Nielsen's 2025 change could each explain part of that, and this data can't separate them. Recent seasons read slightly high for power programs and slightly low for the rest.
+
+Pick a program to see its seasons and its head coaches:
+
+<div id="cfb-viewership-timeline" class="cfblogs--viewership--coach-timeline" data-cfblogs="viewership/coach-timeline.js?v=1"><p><em>The coach timeline needs JavaScript.</em></p></div>
+
+## 7. Does the game itself matter?
 
 Only a little. The audience figure is the average over the whole broadcast, so a blowout should lose its second half. Adding the game's final margin and how it unfolded (from the play-by-play, 2015–2019) to the model:
 
@@ -112,11 +128,11 @@ Those are real and in the expected direction, and they are small next to anythin
 ## What this does not show
 
 - **It is a model of the games that were measured.** Most streaming-only and conference-network games have no published audience, so a program's draw comes from its biggest games. That flatters programs that are rarely on national television and land a big window when they are.
-- **A draw is an average over thirteen seasons.** Colorado's reflects three seasons of Deion Sanders and ten without him. The period comparison in section 5 is the better read on where a program stands now.
+- **A draw is an average over thirteen seasons.** Colorado's reflects three seasons of Deion Sanders and ten without him. The period comparison in section 5 and the season-by-season charts in section 6 are the better read on where a program stands now.
 - **The 2021–2025 audiences were transcribed by hand** from Sports Media Watch's weekly images, and the published figures are rounded. Errors in transcription are possible; every row was matched to a real game on the right date, which catches most of them.
 - **Audience counts changed over the period.** Nielsen expanded out-of-home viewing in 2020 and moved to a big-data panel in 2025. The season term absorbs a uniform shift but not one that affected some networks more than others.
 
-## 7. Where the numbers come from
+## 8. Where the numbers come from
 
 Sports Media Watch has published a table of college football television audiences every week since 2013: the game, the network, the kickoff time and the Nielsen viewer count. Through 2020 those are HTML tables. From 2021 they are images, which were transcribed by hand. Every row was matched to the game it describes in CollegeFootballData's schedule, which adds the teams' rankings in the poll that was current that week, the final score, and whether the game was a bowl, a playoff game or a neutral-site game.
 
